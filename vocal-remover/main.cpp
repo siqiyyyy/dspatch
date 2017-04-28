@@ -77,7 +77,7 @@ int main()
         circuit.ConnectOutToIn( waveStreamer, 1, audioDevice, 1 );  // wave right channel into audioDevice right
 
         // wait for key press
-        std::cout << "Press ENTER to remove vocals ('q' + ENTER to quit)" << std::endl;
+        std::cout << "Press <RETURN> to remove vocals ('q' + <RETURN> to quit)..." << std::endl;
         getline(std::cin, input);
 
         if ( input != "q" )
@@ -92,7 +92,7 @@ int main()
             circuit.ConnectOutToIn( stft, 1, audioDevice, 1 );  // stft right channel into audioDevice right
 
             // wait for key press
-            std::cout << "Press ENTER to re-add vocals ('q' + ENTER to quit)" << std::endl;
+            std::cout << "Press <RETURN> to re-add vocals ('q' + <RETURN> to quit)..." << std::endl;
             getline(std::cin, input);
         }
     }
