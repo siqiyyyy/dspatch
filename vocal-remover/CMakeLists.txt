@@ -72,4 +72,11 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         "-framework CoreAudio"
         "-framework CoreFoundation"
     )
+
+    add_custom_command(
+        TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/Sample.wav
+        ${CMAKE_CURRENT_BINARY_DIR}/$<CONFIGURATION>
+    )
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
