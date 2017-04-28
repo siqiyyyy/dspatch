@@ -9,7 +9,7 @@ static const float TWOPI = 6.283185307179586476925286766559f;
 
 DspStft::DspStft()
     : _bufferSize( 1024 ),
-    _sampleRate( 44100 )
+      _sampleRate( 44100 )
 {
     AddInput_();
     AddInput_();
@@ -205,7 +205,7 @@ void DspStft::_ProcessSpectralBuffers()
 {
     float _frq, _magL, _phiL, _magR, _phiR; // frequency, magnitudes, and phases pulled from FFT result
 
-                                            // 0Hz to Nyquist Frequency (bufferLength / 2)
+    // 0Hz to Nyquist Frequency (bufferLength / 2)
     for ( size_t i = _specBufL.size() / 2; i > 0; i -= 2 )
     {
         //retrieve frequency
