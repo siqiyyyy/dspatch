@@ -239,7 +239,7 @@ void DspStft::_ProcessSpectralBuffers()
             _phiR -= 1;
 
         //if phase diff < 0.05 && magnitude diff < 0.005 && frequency > 700
-        if ( ( abs( _phiL - _phiR ) < 0.05 && abs( _magL - _magR ) < 0.005 ) && _frq > 700 )
+        if ( ( fabs( _phiL - _phiR ) < 0.05 && fabs( _magL - _magR ) < 0.005 ) && _frq > 700 )
         {
             _specBufL[ i ] *= 0.0f;
             _specBufL[ i + 1 ] *= 0.0f;

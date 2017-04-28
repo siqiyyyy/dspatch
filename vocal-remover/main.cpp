@@ -28,17 +28,16 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #include <DspAudioDevice.h>
 #include <DspStft.h>
 
-#include <conio.h>
 #include <iostream>
 #include <stdio.h>
 
 //=================================================================================================
 // This is a simple program that streams an wave out of an audio device,
-// then overlays a 1KHz oscillator when a key is pressed.
+// then removes centre phased signals (the vocals in music) when a key is pressed.
 
 int main()
 {
-    char input = ' ';
+    std::string input;
 
     // 1. Stream wave
     // ==============
@@ -71,17 +70,17 @@ int main()
     waveStreamer.LoadFile( "./Sample.wav" );
     waveStreamer.Play();
 
-    while ( input != 'q' )
+    while ( input != "q" )
     {
         // connect component output signals to respective component input signals
         circuit.ConnectOutToIn( waveStreamer, 0, audioDevice, 0 );  // wave left channel into audioDevice left
         circuit.ConnectOutToIn( waveStreamer, 1, audioDevice, 1 );  // wave right channel into audioDevice right
 
         // wait for key press
-        std::cout << "Press enter to remove vocals (q to quit)" << std::endl;
-        input = _getch();
+        std::cout << "Press ENTER to remove vocals ('q' + ENTER to quit)" << std::endl;
+        getline(std::cin, input);
 
-        if ( input != 'q' )
+        if ( input != "q" )
         {
             // 2. Remove vocals
             // ================
@@ -93,8 +92,8 @@ int main()
             circuit.ConnectOutToIn( stft, 1, audioDevice, 1 );  // stft right channel into audioDevice right
 
             // wait for key press
-            std::cout << "Press enter to re-add vocals (q to quit)" << std::endl;
-            input = _getch();
+            std::cout << "Press ENTER to re-add vocals ('q' + ENTER to quit)" << std::endl;
+            getline(std::cin, input);
         }
     }
 
