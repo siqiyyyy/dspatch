@@ -39,6 +39,12 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
         ${CMAKE_CURRENT_SOURCE_DIR}/Sample.wav
         ${CMAKE_CURRENT_BINARY_DIR}/$<CONFIGURATION>
     )
+    add_custom_command(
+        TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/Sample.wav
+        ${CMAKE_CURRENT_BINARY_DIR}
+    )
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
 # Definition for RtAudio Linux, using ALSA
