@@ -49,6 +49,7 @@ option(BUILD_EXAMPLES "Build Examples" ON)
 if(${BUILD_EXAMPLES})
     add_subdirectory(example)
     add_subdirectory(tutorial)
+    add_subdirectory(vocal-remover)
 endif(${BUILD_EXAMPLES})
 
 add_subdirectory(doc)

@@ -240,7 +240,7 @@ void DspWaveStreamer::Process_(DspSignalBus&, DspSignalBus& outputs)
 
         outputs.SetValue(0, _leftChannel);
         outputs.SetValue(1, _rightChannel);
-        outputs.SetValue("Sample Rate", _waveFormat.sampleRate);
+        outputs.SetValue("Sample Rate", ( int ) _waveFormat.sampleRate);
     }
     else
     {
