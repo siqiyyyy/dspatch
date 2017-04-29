@@ -117,10 +117,10 @@ void DspStft::_InitBuffers()
     _sigBufR.resize( _bufferSize * 2 );
     _sigBufR.assign( _bufferSize * 2, 0 );
 
-    _specBufL.resize( _bufferSize * 4 );
-    _specBufL.assign( _bufferSize * 4, 0 );
-    _specBufR.resize( _bufferSize * 4 );
-    _specBufR.assign( _bufferSize * 4, 0 );
+    _specBufL.resize( _bufferSize * 2 );
+    _specBufL.assign( _bufferSize * 2 , 0 );
+    _specBufR.resize( _bufferSize * 2 );
+    _specBufR.assign( _bufferSize * 2, 0 );
 
     _mixBufL.resize( _bufferSize );
     _mixBufL.assign( _bufferSize, 0 );
@@ -206,21 +206,13 @@ void DspStft::_ProcessSpectralBuffers()
     float _frq, _magL, _phiL, _magR, _phiR; // frequency, magnitudes, and phases pulled from FFT result
     _frq = 0;
 
-    // 0Hz to Nyquist Frequency (bufferLength / 2)
     for ( size_t i = 2; i < _specBufL.size(); i += 2 )
     {
-        //retrieve frequency
-        if ( i <= _specBufL.size() / 2 )
-        {
-            _frq += ( float ) 2 * _sampleRate / ( float ) _specBufL.size();
-        }
-        else
-        {
-            _frq -= ( float ) 2 * _sampleRate / ( float ) _specBufL.size();
-        }
+        //retrieve frequency (0Hz to Nyquist Frequency)
+        _frq += ( float ) _sampleRate / ( float ) _specBufL.size();
 
         //retrieve magnitudes (L & R)
-        _magL = 2.0f * sqrt( _specBufL[ i ] * _specBufL[ i ] + _specBufL[ i + 1 ] * _specBufL[ i + 1 ] );	//[i] = real [i+1] = imaginary
+        _magL = 2.0f * sqrt( _specBufL[ i ] * _specBufL[ i ] + _specBufL[ i + 1 ] * _specBufL[ i + 1 ] );	//[i] = real & [i+1] = imaginary
         _magR = 2.0f * sqrt( _specBufR[ i ] * _specBufR[ i ] + _specBufR[ i + 1 ] * _specBufR[ i + 1 ] );
 
         //retrieve phases (L & R)
