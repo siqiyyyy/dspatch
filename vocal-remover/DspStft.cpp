@@ -118,7 +118,7 @@ void DspStft::_InitBuffers()
     _sigBufR.assign( _bufferSize * 2, 0 );
 
     _specBufL.resize( _bufferSize * 2 );
-    _specBufL.assign( _bufferSize * 2 , 0 );
+    _specBufL.assign( _bufferSize * 2, 0 );
     _specBufR.resize( _bufferSize * 2 );
     _specBufR.assign( _bufferSize * 2, 0 );
 
