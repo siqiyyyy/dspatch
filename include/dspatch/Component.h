@@ -105,10 +105,12 @@ public:
     void SetBufferCount( int bufferCount );
     int GetBufferCount() const;
 
+    bool PreTick( TickMode mode = TickMode::Parallel, int bufferNo = 0 );
     bool Tick( TickMode mode = TickMode::Parallel, int bufferNo = 0 );
     void Reset( int bufferNo = 0 );
 
 protected:
+    virtual void PreProcess_( SignalBus const&, SignalBus& ) = 0;
     virtual void Process_( SignalBus const&, SignalBus& ) = 0;
 
     void SetInputCount_( int inputCount, std::vector<std::string> const& inputNames = {} );

@@ -256,6 +256,12 @@ int Component::GetBufferCount() const
     return p->inputBuses.size();
 }
 
+bool Component::PreTick( Component::TickMode mode, int bufferNo )
+{
+    PreProcess_( p->inputBuses[bufferNo], p->outputBuses[bufferNo] );
+	return true;
+}
+
 bool Component::Tick( Component::TickMode mode, int bufferNo )
 {
     // continue only if this component has not already been ticked
@@ -312,7 +318,7 @@ bool Component::Tick( Component::TickMode mode, int bufferNo )
             // the final request rather than in Reset().
 
             // 5. clear outputs
-            p->outputBuses[bufferNo].ClearAllValues();
+            //p->outputBuses[bufferNo].ClearAllValues();
 
             if ( p->processOrder == ProcessOrder::InOrder && p->bufferCount > 1 )
             {

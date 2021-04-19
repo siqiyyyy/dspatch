@@ -20,6 +20,7 @@ class And final : public Component
 public:
     // 2. Configure component IO buses
     // ===============================
+	bool bool_storage = false;
     And()
     {
         // add 2 inputs
@@ -30,6 +31,10 @@ public:
     }
 
 protected:
+    virtual void PreProcess_( SignalBus const&, SignalBus& outputs ) override
+    {
+        outputs.SetValue( 0, bool_storage );
+    }
     // 3. Implement virtual Process_() method
     // ======================================
     virtual void Process_( SignalBus const& inputs, SignalBus& outputs ) override
@@ -42,7 +47,7 @@ protected:
         if ( bool1 && bool2 )
         {
             // set the output as the result of bool1 AND bool2
-            outputs.SetValue( 0, *bool1 && *bool2 );
+			bool_storage = *bool1 && *bool2;
         }
     }
 };
@@ -54,6 +59,7 @@ protected:
 class RandBool final : public Component
 {
 public:
+	bool bool_storage = false;
     RandBool()
     {
         // add 1 output
@@ -64,10 +70,14 @@ public:
     }
 
 protected:
+    virtual void PreProcess_( SignalBus const&, SignalBus& outputs ) override
+    {
+        outputs.SetValue( 0, bool_storage );
+    }
     virtual void Process_( SignalBus const&, SignalBus& outputs ) override
     {
         // set output as randomized true / false
-        outputs.SetValue( 0, rand() % 2 == 0 );
+		bool_storage = (rand()%2 == 0);
     }
 };
 
@@ -85,6 +95,10 @@ public:
     }
 
 protected:
+    virtual void PreProcess_( SignalBus const&, SignalBus& outputs ) override
+    {
+		return;
+    }
     virtual void Process_( SignalBus const& inputs, SignalBus& ) override
     {
         // create a local stack variable to hold input value

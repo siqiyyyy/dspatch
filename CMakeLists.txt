@@ -100,5 +100,5 @@ target_include_directories(${PROJECT_NAME} INTERFACE
 )
 
 add_subdirectory(docs)
-add_subdirectory(tests)
+#add_subdirectory(tests)
 add_subdirectory(tutorial)

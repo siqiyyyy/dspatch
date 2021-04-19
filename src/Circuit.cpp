@@ -245,6 +245,11 @@ int Circuit::GetBufferCount() const
 
 void Circuit::Tick( Component::TickMode mode )
 {
+	// First loop through the PreTick method of all components
+    for ( auto& component : p->components )
+    {
+        component->PreTick( mode );
+    }
     // process in a single thread if this circuit has no threads
     // =========================================================
     if ( p->circuitThreads.empty() )
